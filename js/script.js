@@ -10,7 +10,8 @@ const products = [
     imageSrc: "/assets/baskets.png",
     isFavorite: false,
     quantityEl: defaultQuantityEl,
-    favoriteEl: defaultQuantityEl
+    favoriteEl: defaultQuantityEl,
+    deleted: false,
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ const products = [
     imageSrc: "/assets/socks.png",
     isFavorite: false,
     quantityEl: defaultQuantityEl,
-    favoriteEl: defaultQuantityEl
+    favoriteEl: defaultQuantityEl,
+    deleted: false,
   },
   {
     id: 3,
@@ -32,13 +34,14 @@ const products = [
     imageSrc: "/assets/bag.png",
     isFavorite: false,
     quantityEl: defaultQuantityEl,
-    favoriteEl: defaultQuantityEl
+    favoriteEl: defaultQuantityEl,
+    deleted: false,
   },
 ]
 
 const updateCartTotal = () => {
   const totalEl = document.querySelector('.total');
-  const total = products.reduce((acc, product) => {
+  const total = products.filter(item => !item.deleted).reduce((acc, product) => {
     return acc + (product.cartQuantity * product.price);
   }, 0);
 
@@ -63,11 +66,26 @@ const decreaseCartQuantity = (productId = 1) => {
   const product = products[itemIndex];
 
   if (!product.cartQuantity) return;
-  product.cartQuantity--;
+  product.cartQuantity = product.cartQuantity - 1;
   product[itemIndex] = product;
 
   product.quantityEl.innerText = product.cartQuantity;
   updateCartTotal();
+}
+
+const deleteCartItem = (productId = 1) => {
+  const itemIndex = products.findIndex(product => productId === product.id);
+  if (itemIndex === -1) return;
+  const product = products[itemIndex];
+
+  products[itemIndex] = {
+    ...product,
+    deleted: true,
+    cartQuantity: 0
+  };
+
+  updateCartTotal();
+  renderProductItems()
 }
 
 const toggleFavorite = (productId = 1) => {
@@ -89,7 +107,7 @@ const renderProductItems = () => {
   }
 
   const productCards = [];
-  products.forEach(product => {
+  products.filter(product => !product.deleted).forEach(product => {
     const productDiv = document.createElement('div');
 
     productDiv.innerHTML = `
@@ -119,10 +137,10 @@ const renderProductItems = () => {
     `;
 
     const incrementBtn = productDiv.querySelector('.increment');
-    if (incrementBtn) incrementBtn.addEventListener('click', (e) =>  increaseCartQuantity(product.id));
+    if (incrementBtn) incrementBtn.addEventListener('click', () =>  increaseCartQuantity(product.id));
 
     const decrementBtn = productDiv.querySelector('.decrement');
-    if (decrementBtn) decrementBtn.addEventListener('click', (e) =>  decreaseCartQuantity(product.id));
+    if (decrementBtn) decrementBtn.addEventListener('click', () =>  decreaseCartQuantity(product.id));
 
     const quantityEl = productDiv.querySelector('span.quantity');
     if (quantityEl) product.quantityEl = quantityEl;
@@ -134,11 +152,23 @@ const renderProductItems = () => {
       favoriteEl.addEventListener('click', () => toggleFavorite(product.id))
     };
 
+    const deleteEl = productDiv.querySelector('i.fa-trash-alt');
+    if (deleteEl) deleteEl.addEventListener('click', () => deleteCartItem(product.id))
+
     productCards.push(productDiv);
   });
 
-  productListEl.innerHTML = `<div class="list-products"></div>`;
-  productListEl.append(...productCards)
+  productListEl.innerHTML = ``;
+
+  if (productCards.length) {
+    productListEl.append(...productCards)
+    return;
+  }
+
+  const emptyStateDiv = document.createElement('div');
+  emptyStateDiv.className = "text-center";
+  emptyStateDiv.textContent = "No Products in Cart"
+  productListEl.append(emptyStateDiv);
 }
 
 renderProductItems();
