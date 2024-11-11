@@ -1,6 +1,9 @@
 # DOM Projects
 
-A basic static website showcasing my web development skills.
+A basic static website showcasing my web development skills. Live demo available at
+
+1. Shopping Cart => https://kenovienadu.github.io/gmc_dom_projects/shopping_cart/
+2. Color Changer => https://kenovienadu.github.io/gmc_dom_projects/color_changer/
 
 ## Table of Contents
 - [Overview](#overview)
