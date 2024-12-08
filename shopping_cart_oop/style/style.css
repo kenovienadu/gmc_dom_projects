@@ -1,0 +1,13 @@
+main {
+  width: 1000px;
+  margin: 40px auto;
+}
+
+.product {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+
+.total {
+  font-weight: bold;
+}

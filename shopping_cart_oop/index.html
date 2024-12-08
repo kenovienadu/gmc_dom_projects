@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Font awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style/style.css" />
+    <title>Workshop DOM (OOP)</title>
+  </head>
+  <body>
+    <main>
+      <section class="cart bg-gray-100 p-4 rounded mb-4">
+        <div class="flex justify-between">
+          <span>Cart</span>
+          <div class="inline-flex items-center gap-4">
+            <div>Total: $<span id="total">0</span></div>
+            <button class="text-xs bg-gray-700 text-white p-2 rounded clear">Clear</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-3 gap-4 products-grid">
+        <!-- Items go here (inserted via javascript) -->
+      </section>
+    </main>
+
+    <!-- My JS -->
+    <script src="./js/products.js"></script>
+     <script src="./js/models/product.js"></script>
+     <script src="./js/models/cart_item.js"></script>
+     <script src="./js/models/cart.js"></script>
+    <script src="./js/script_oop.js"></script>
+  </body>
+</html>
