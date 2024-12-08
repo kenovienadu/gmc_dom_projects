@@ -4,6 +4,7 @@ A basic static website showcasing my web development skills. Live demo available
 
 1. Shopping Cart => https://kenovienadu.github.io/gmc_dom_projects/shopping_cart/
 2. Color Changer => https://kenovienadu.github.io/gmc_dom_projects/color_changer/
+3. Shopping Cart => https://kenovienadu.github.io/gmc_dom_projects/shopping_cart_oop/
 
 ## Table of Contents
 - [Overview](#overview)
